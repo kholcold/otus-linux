@@ -1,5 +1,7 @@
 ## Домашнее задание
 
+[ДЗ залогировал с помощью script + Vagrantfile](a/)
+
 на имеющемся образе
 /dev/mapper/VolGroup00-LogVol00 38G 738M 37G 2% /
 
