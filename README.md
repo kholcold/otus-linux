@@ -4,6 +4,8 @@
 
 [ДЗ-3 Работа с LVM](labs/lab3)
 
+[ДЗ-10 Первые шаги с Ansible](labs/lab10)
+
 # Инструкции
 
 * [Как начать Git](git_quick_start.md)
