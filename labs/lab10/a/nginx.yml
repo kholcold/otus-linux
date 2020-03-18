@@ -24,13 +24,6 @@
         - nginx-package
         - packages
 
-    #- name: Start and enabled nginx
-    #  systemd:
-    #    daemon_reload: yes 
-    #    name: nginx
-    #    state: restarted
-    #    enabled: yes
-
     - name: NGINX | Create NGINX config file from template
       template:
         src: templates/nginx.conf.j2
