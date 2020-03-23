@@ -1,0 +1,7 @@
+---
+  - name: Nginx
+    hosts: nginx
+    become: true
+    strategy: linear
+    roles:
+      - nginx
