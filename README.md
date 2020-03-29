@@ -6,6 +6,8 @@
 
 [ДЗ-10 Первые шаги с Ansible](labs/lab10)
 
+[ДЗ-11 Docker](labs/lab11)
+
 # Инструкции
 
 * [Как начать Git](git_quick_start.md)
