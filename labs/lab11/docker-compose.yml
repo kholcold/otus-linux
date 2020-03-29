@@ -1,0 +1,15 @@
+nginx:
+  image: kholcold/nginx
+  ports:
+    - "8080:8080"
+  links:
+    - php
+  volumes:
+    - ./html/:/usr/share/nginx/html/
+    - ./conf.d/:/etc/nginx/conf.d/
+php:
+  image: kholcold/fpm
+  ports:
+    - "9000:9000"
+  volumes:
+    - ./html/:/usr/share/nginx/html/
