@@ -4,6 +4,8 @@
 
 [ДЗ-3 Работа с LVM](labs/lab3)
 
+[ДЗ-6 Работа с загрузчиком](labs/lab6)
+
 [ДЗ-10 Первые шаги с Ansible](labs/lab10)
 
 [ДЗ-11 Docker](labs/lab11)
