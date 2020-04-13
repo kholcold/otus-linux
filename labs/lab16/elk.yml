@@ -1,0 +1,15 @@
+---
+  - name: Nginx
+    hosts: web
+    become: true
+    strategy: linear
+    roles:
+      - nginx
+      - filebeat
+  
+  - name: ELK
+    hosts: log
+    become: true
+    strategy: linear
+    roles:
+      - elk

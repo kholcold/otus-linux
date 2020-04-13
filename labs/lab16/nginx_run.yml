@@ -1,8 +1,0 @@
----
-  - name: Nginx
-    hosts: web
-    become: true
-    strategy: linear
-    roles:
-      - nginx
-      - filebeat
