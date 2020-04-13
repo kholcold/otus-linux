@@ -1,6 +1,9 @@
 ---
-# handlers file for nginx
-#  handlers:
+    - name: start filebeat
+      systemd:
+        name: filebeat
+        state: started
+        enabled: yes
     - name: restart filebeat
       systemd:
         daemon_reload: yes
