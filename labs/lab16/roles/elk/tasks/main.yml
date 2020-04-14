@@ -1,22 +1,50 @@
 ---
+  - name: 'Install open'
+    yum:
+      name: java-1.8.0-openjdk
+      state: present
+  
   - name: 'Import GPG-KEY-elasticsearch'
     rpm_key:
       state: present
       key: https://packages.elastic.co/GPG-KEY-elasticsearch
   
-  - name: 'Copy file for FILEBEAT repo'
+  - name: 'Copy file for ELK repo'
     template:
       src: files/elastic.repo
-      dest: "{{ filebeat_repo_path }}"
+      dest: "{{ elk_repo_path }}"
 
-  - name: 'Install FILEBEAT'
+  - name: 'Install elasticsearch'
     yum:
-      name: filebeat
+      name: elasticsearch
       state: present
-
-  - name: 'Create FILEBEAT config file from template'
-    template:
-      src: templates/filebeat.yml.j2
-      dest: /etc/filebeat/filebeat.yml
     notify:
-      - restart filebeat
+      - start elasticsearch
+
+  - name: 'Create elasticsearch config file from template'
+    template:
+      src: templates/elasticsearch.yml.j2
+      dest: /etc/elasticsearch/elasticsearch.yml
+    notify:
+      - restart elasticsearch
+
+  - name: 'Install logstash'
+    yum:
+      name: logstash
+      state: present
+    notify:
+      - start logstash
+
+  - name: 'Create logstash config file from template'
+    template:
+      src: templates/conf.d
+      dest: /etc/logstash/conf.d
+      notify:
+        - restart logstash
+  
+  - name: 'Install logstash'
+    yum:
+      name: kibana
+      state: present
+    notify:
+      - start kibana

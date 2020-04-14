@@ -1,2 +1,2 @@
 ---
-  filebeat_repo_path: /etc/yum.repos.d/elastic.repo
+  elk_repo_path: /etc/yum.repos.d/elastic.repo

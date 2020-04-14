@@ -1,12 +1,30 @@
 ---
-    - name: start filebeat
+    - name: start elasticsearch
       systemd:
-        name: filebeat
+        name: elasticsearch
         state: started
         enabled: yes
-    - name: restart filebeat
+    - name: restart elasticsearch
       systemd:
         daemon_reload: yes
-        name: filebeat
+        name: elasticsearch
         state: restarted
+        enabled: yes
+
+    - name: start logstash
+      systemd:
+        name: logstash
+        state: started
+        enabled: yes
+    - name: restart logstash
+      systemd:
+        daemon_reload: yes
+        name: logstash
+        state: restarted
+        enabled: yes
+    
+    - name: start kibana
+      systemd:
+        name: kibana
+        state: started
         enabled: yes
