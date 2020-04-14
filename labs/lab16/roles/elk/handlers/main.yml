@@ -28,3 +28,9 @@
         name: kibana
         state: started
         enabled: yes
+    - name: restart kibana
+      systemd:
+        daemon_reload: yes
+        name: kibana
+        state: restarted
+        enabled: yes

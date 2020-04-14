@@ -36,20 +36,25 @@
       - start logstash
 
   - name: 'Create logstash config file from template'
-    template:
-      with_items:
-        - templates/conf.d/input.conf.j2
-        - templates/conf.d/nginx-access.conf.j2
-        - templates/conf.d/nginx-error.conf.j2
-        - templates/conf.d/output.conf.j2
-      src: {{ item }}
-      dest: /etc/logstash/conf.d
-      notify:
-        - restart logstash
+    template: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - { src: 'templates/conf.d/input.conf.j2', dest: '/etc/logstash/conf.d/input.conf' }
+      - { src: 'templates/conf.d/nginx-access.conf.j2', dest: '/etc/logstash/conf.d/nginx-access.conf' }
+      - { src: 'templates/conf.d/nginx-error.conf.j2', dest: '/etc/logstash/conf.d/nginx-error.conf' }
+      - { src: 'templates/conf.d/output.conf.j2', dest: '/etc/logstash/conf.d/output.conf' }
+    notify:
+      - restart logstash
   
-  - name: 'Install logstash'
+  - name: 'Install kibana'
     yum:
       name: kibana
       state: present
     notify:
       - start kibana
+  
+  - name: 'Create kibana config file from template'
+    template:
+      src: templates/kibana.yml.j2
+      dest: /etc/kibana/kibana.yml
+    notify:
+      - restart kibana
