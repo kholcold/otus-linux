@@ -37,7 +37,12 @@
 
   - name: 'Create logstash config file from template'
     template:
-      src: templates/conf.d
+      with_items:
+        - templates/conf.d/input.conf.j2
+        - templates/conf.d/nginx-access.conf.j2
+        - templates/conf.d/nginx-error.conf.j2
+        - templates/conf.d/output.conf.j2
+      src: {{ item }}
       dest: /etc/logstash/conf.d
       notify:
         - restart logstash
