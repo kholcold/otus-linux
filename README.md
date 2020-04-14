@@ -10,6 +10,8 @@
 
 [ДЗ-11 Docker](labs/lab11)
 
+[ДЗ-16 Сбор и анализ логов](labs/lab16)
+
 # Инструкции
 
 * [Как начать Git](git_quick_start.md)
