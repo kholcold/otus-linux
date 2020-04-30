@@ -1,0 +1,15 @@
+---
+  - name: Zabbix server
+    hosts: server
+    become: true
+    strategy: linear
+    roles:
+      - zabbix_srv
+      - grafana
+  
+  - name: Agent zabbix and prometheus
+    hosts: agent
+    become: true
+    strategy: linear
+    roles:
+      - zabbix_agent

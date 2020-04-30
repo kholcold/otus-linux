@@ -1,0 +1,36 @@
+---
+    - name: start elasticsearch
+      systemd:
+        name: elasticsearch
+        state: started
+        enabled: yes
+    - name: restart elasticsearch
+      systemd:
+        daemon_reload: yes
+        name: elasticsearch
+        state: restarted
+        enabled: yes
+
+    - name: start logstash
+      systemd:
+        name: logstash
+        state: started
+        enabled: yes
+    - name: restart logstash
+      systemd:
+        daemon_reload: yes
+        name: logstash
+        state: restarted
+        enabled: yes
+    
+    - name: start kibana
+      systemd:
+        name: kibana
+        state: started
+        enabled: yes
+    - name: restart kibana
+      systemd:
+        daemon_reload: yes
+        name: kibana
+        state: restarted
+        enabled: yes
