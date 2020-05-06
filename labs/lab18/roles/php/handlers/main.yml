@@ -1,6 +1,6 @@
 ---
 # handlers file for nginx
-  handlers:
+#  handlers:
     - name: restart php-fpm
       systemd:
         daemon_reload: yes
