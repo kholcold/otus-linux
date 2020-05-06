@@ -1,19 +1,24 @@
 ---
-  - name: 'Install PHP'
+  - name: 'Install remi and epel-release'
     yum:
-      name: nginx
+      name:
+        - epel-release
+        - http://rpms.remirepo.net/enterprise/remi-release-7.rpm
       state: present
-    notify:
-      - restart nginx
+  
+  - name: 'Install php'
+    yum:
+      name: "{{ php_packages }}"
+      state: present
+  
+  - name: Creates directory
+    file:
+      path: /var/lib/php
+      state: directory
 
-  - name: 'Create NGINX config file from template'
+  - name: 'Create PHP-FPM config file from template'
     template:
-      src: templates/default.conf.j2
-      dest: /etc/nginx/conf.d/default.conf
+      src: templates/www.conf.j2
+      dest: /etc/opt/remi/php71/php-fpm.d/www.conf
     notify:
-      - reload nginx
-    
-  - name: 'Copy index.html'
-    template:
-      src: templates/index.html.j2
-      dest: /usr/share/nginx/html/index.html
+      - restart php-fpm

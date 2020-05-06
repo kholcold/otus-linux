@@ -4,12 +4,13 @@
     become: true
     strategy: linear
     roles:
-      - zabbix_srv
-      - grafana
+      - nginx
+      - php
+#      - grafana
   
-  - name: Agent zabbix and prometheus
-    hosts: agent
-    become: true
-    strategy: linear
-    roles:
-      - zabbix_agent
+#  - name: Agent zabbix and prometheus
+#    hosts: agent
+#    become: true
+#    strategy: linear
+#    roles:
+#      - zabbix_agent
