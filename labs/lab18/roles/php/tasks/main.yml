@@ -15,6 +15,12 @@
     file:
       path: /var/lib/php
       state: directory
+  
+  - name: Directory permission session
+    file:
+      path: /var/opt/remi/php71/lib/php/session
+      owner: nginx
+      group: nginx
 
   - name: 'Create PHP-FPM config file from template'
     template:
