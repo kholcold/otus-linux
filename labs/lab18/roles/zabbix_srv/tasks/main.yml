@@ -5,26 +5,27 @@
 
 #  tasks:
 
-  - name: 'Copy file for NGINX repo'
-    template:
-      src: files/nginx.repo
-      dest: "{{ nginx_repo_path }}"
+#  - name: 'Copy file for NGINX repo'
+#    template:
+#      src: files/nginx.repo
+#      dest: "{{ nginx_repo_path }}"
 
-  - name: 'Install NGINX'
+  - name: 'Install REPO zabbix server'
     yum:
-      name: nginx
+      name: https://repo.zabbix.com/zabbix/4.0/rhel/7/x86_64/zabbix-release-4.0-2.el7.noarch.rpm
       state: present
-    notify:
-      - restart nginx
 
-  - name: 'Create NGINX config file from template'
-    template:
-      src: templates/default.conf.j2
-      dest: /etc/nginx/conf.d/default.conf
+  - name: 'Install zabbix server, web, zabbix agent'
+    yum:
+      name:
+        - zabbix-server-mysql
+        - zabbix-web-mysql
+        - zabbix-agent
     notify:
-      - reload nginx
+      - restart zabbix-server
+      - restart zabbix-agent
     
-  - name: 'Copy index.html'
-    template:
-      src: templates/index.html.j2
-      dest: /usr/share/nginx/html/index.html
+#  - name: 'Copy index.html'
+#    template:
+#      src: templates/index.html.j2
+#      dest: /usr/share/nginx/html/index.html

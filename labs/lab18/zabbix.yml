@@ -4,9 +4,11 @@
     become: true
     strategy: linear
     roles:
-      - selinux
-      - nginx
-      - php
+      - mariadb
+      - zabbix_srv
+#      - selinux
+#      - nginx
+#      - php
 #      - grafana
   
 #  - name: Agent zabbix and prometheus

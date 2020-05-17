@@ -1,14 +1,26 @@
 ---
 # handlers file for nginx
 #  handlers:
-    - name: restart nginx
+    - name: restart zabbix-server
       systemd:
         daemon_reload: yes
-        name: nginx
+        name: zabbix-server
         state: restarted
         enabled: yes
 
-    - name: reload nginx
+    - name: reload zabbix-server
       systemd:
-        name: nginx
+        name: zabbix-server
+        state: reloaded
+
+    - name: restart zabbix-agent
+      systemd:
+        daemon_reload: yes
+        name: zabbix-agent
+        state: restarted
+        enabled: yes
+
+    - name: reload zabbix-agent
+      systemd:
+        name: zabbix-agent
         state: reloaded
