@@ -1,10 +1,4 @@
 ---
-# tasks file for nginx
-#- hosts: nginx
-#  become: true
-
-#  tasks:
-
   - name: 'Copy file for MariaDB repo'
     template:
       src: files/mariadb.repo
@@ -17,18 +11,19 @@
         - MariaDB-server
         - MariaDB-client
       state: present
-    notify:
-      - restart mariadb
   
-  - name: 'Copy file create db and user'
-    template:
-      src: files/create_db_and_user.sh
-      dest: /root/
+  - name: Enable mariadb
+    systemd:
+      state: started
+      name: mariadb
+      enabled: yes
 
-  - name: 'Create DB and USER'
-    shell: /root/create_db_and_user.sh
-    
-#  - name: 'Copy index.html'
-#    template:
-#      src: templates/index.html.j2
-#      dest: /usr/share/nginx/html/index.html
+  - name: 'Create ZABBIX config file from template'
+    template:
+      src: templates/server.cnf.j2
+      dest: /etc/my.cnf.d/server.cnf
+  
+  - name: Restart mariadb
+    systemd:
+      state: restarted
+      name: mariadb

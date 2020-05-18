@@ -1,60 +1,19 @@
 ---
-  - name: 'Install open'
+  - name: 'Install REPO zabbix server'
     yum:
-      name: java-1.8.0-openjdk
+      name: https://repo.zabbix.com/zabbix/4.0/rhel/7/x86_64/zabbix-release-4.0-2.el7.noarch.rpm
       state: present
-  
-  - name: 'Import GPG-KEY-elasticsearch'
-    rpm_key:
-      state: present
-      key: https://packages.elastic.co/GPG-KEY-elasticsearch
-  
-  - name: 'Copy file for ELK repo'
+
+  - name: 'Install zabbix agent'
+    yum:
+      name:
+        - zabbix-agent
+    notify:
+      - restart zabbix-agent
+
+  - name: 'Create ZABBIX config file from template'
     template:
-      src: files/elastic.repo
-      dest: "{{ elk_repo_path }}"
-
-  - name: 'Install elasticsearch'
-    yum:
-      name: elasticsearch
-      state: present
+      src: templates/zabbix_agent.conf.j2
+      dest: /etc/zabbix/zabbix_agent.conf
     notify:
-      - start elasticsearch
-
-  - name: 'Create elasticsearch config file from template'
-    template:
-      src: templates/elasticsearch.yml.j2
-      dest: /etc/elasticsearch/elasticsearch.yml
-    notify:
-      - restart elasticsearch
-
-  - name: 'Install logstash'
-    yum:
-      name: logstash
-      state: present
-    notify:
-      - start logstash
-
-  - name: 'Create logstash config file from template'
-    template: src={{ item.src }} dest={{ item.dest }}
-    with_items:
-      - { src: 'templates/conf.d/input.conf.j2', dest: '/etc/logstash/conf.d/input.conf' }
-      - { src: 'templates/conf.d/nginx-access.conf.j2', dest: '/etc/logstash/conf.d/nginx-access.conf' }
-      - { src: 'templates/conf.d/nginx-error.conf.j2', dest: '/etc/logstash/conf.d/nginx-error.conf' }
-      - { src: 'templates/conf.d/output.conf.j2', dest: '/etc/logstash/conf.d/output.conf' }
-    notify:
-      - restart logstash
-  
-  - name: 'Install kibana'
-    yum:
-      name: kibana
-      state: present
-    notify:
-      - start kibana
-  
-  - name: 'Create kibana config file from template'
-    template:
-      src: templates/kibana.yml.j2
-      dest: /etc/kibana/kibana.yml
-    notify:
-      - restart kibana
+      - restart zabbix-agent

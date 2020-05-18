@@ -5,7 +5,7 @@
       systemd:
         daemon_reload: yes
         name: mariadb
-        state: restarted
+        state: started
         enabled: yes
 
     - name: reload mariadb

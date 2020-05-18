@@ -4,16 +4,14 @@
     become: true
     strategy: linear
     roles:
+      - selinux
       - mariadb
       - zabbix_srv
-#      - selinux
-#      - nginx
-#      - php
-#      - grafana
   
-#  - name: Agent zabbix and prometheus
-#    hosts: agent
-#    become: true
-#    strategy: linear
-#    roles:
-#      - zabbix_agent
+  - name: Agent zabbix
+    hosts: agent
+    become: true
+    strategy: linear
+    roles:
+      - selinux
+      - zabbix_agent
