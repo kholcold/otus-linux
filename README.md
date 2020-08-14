@@ -6,6 +6,8 @@
 
 [ДЗ-6 Работа с загрузчиком](labs/lab6)
 
+[ДЗ-7 Инициализация системы. Systemd и SysV](labs/lab7)
+
 [ДЗ-10 Первые шаги с Ansible](labs/lab10)
 
 [ДЗ-11 Docker](labs/lab11)
