@@ -17,3 +17,52 @@ LOG=/var/log/watchlog.log
 ```
 [root@otuslinux ~]# touch /var/log/watchlog.log
 ```
+
+Создадим скрипт:
+```
+[root@otuslinux ~]# nano /opt/watchlog.sh
+
+#!/bin/bash
+
+WORD=$1
+LOG=$2
+DATE=`date`
+
+if grep $WORD $LOG &> /dev/null
+then
+    logger "$DATE: I found word, Master!"
+else
+    exit 0
+fi
+```
+Команда ```logger``` отправлāет лог в системный журнал
+
+Создадим юнит для сервиса:
+```
+[root@otuslinux ~]# nano /etc/systemd/system/watchlog.service
+
+[Unit]
+Description=My watchlog service
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/sysconfig/watchlog
+ExecStart=/opt/watchlog.sh $WORD $LOG
+```
+Создадим юнит для таймера:
+```
+[root@otuslinux ~]# nano /etc/systemd/system/watchlog.timer
+
+[Unit]
+Description=Run watchlog script every 30 second
+[Timer]
+# Run every 30 second
+OnUnitActiveSec=30
+Unit=watchlog.service
+[Install]
+WantedBy=multi-user.target
+```
+
+Запускаем timer:
+```
+[root@otuslinux sysconfig]# systemctl start watchlog.timer
+```
